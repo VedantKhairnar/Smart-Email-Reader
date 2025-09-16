@@ -26,6 +26,7 @@ And along the way, you’ll get hands-on with Chrome extension dev, a Python Fas
 
 That’s it — you’re ready to dive in 🚀
 
+You may refer the full fledged code of extension over [here](https://github.com/VedantKhairnar/Smart-Email-Reader).
 ---
 
 ## 🏗️ The Master Plan: How Everything Fits Together
