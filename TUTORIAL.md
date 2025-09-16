@@ -387,48 +387,75 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import aiohttp, os
 from dotenv import load_dotenv
-load_dotenv()
-app = FastAPI()
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
+# Load environment variables from .env file
+load_dotenv()
+
+# Initialize FastAPI app
+app = FastAPI()
+
+# Enable CORS for all origins (for development)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
+
+# Request model for summarization endpoint
 class SummarizeRequest(BaseModel):
     email_content: str
     sender: str = ""
     subject: str = ""
+
+# Request model for audio generation endpoint
 class AudioRequest(BaseModel):
     text: str
 
+# Health check endpoint
 @app.get("/")
 async def root():
     return {"status": "running"}
 
+# Summarize email endpoint
 @app.post("/api/v1/email/summarize")
 async def summarize_email(request: SummarizeRequest):
+    # Get Gemini API key from environment
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
         raise HTTPException(status_code=500, detail="Gemini API key not configured")
+    # Prepare prompt for Gemini
     prompt = f"Summarize: {request.email_content}"
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={api_key}"
+    # Make async request to Gemini API
     async with aiohttp.ClientSession() as s:
         async with s.post(url, json={"contents": [{"parts": [{"text": prompt}]}]}) as r:
             if r.status == 200:
                 data = await r.json()
+                # Return summary from Gemini response
                 return {"success": True, "summary": data["candidates"][0]["content"]["parts"][0]["text"]}
+            # Handle Gemini API error
             raise HTTPException(status_code=500, detail="Gemini error")
 
+# Generate audio endpoint
 @app.post("/api/v1/email/generate-audio")
 async def generate_audio(request: AudioRequest):
+    # Get Murf API key from environment
     api_key = os.getenv("MURF_API_KEY")
     if not api_key:
         raise HTTPException(status_code=500, detail="Murf API key not configured")
     url = "https://api.murf.ai/v1/speech/generate"
+    # Make async request to Murf API
     async with aiohttp.ClientSession() as s:
         async with s.post(url, headers={"api-key": api_key}, json={"voiceId": "en-US-ken", "text": request.text, "format": "MP3"}) as r:
             if r.status == 200:
                 data = await r.json()
+                # Return audio file URL from Murf response
                 return {"success": True, "audio_url": data.get("audioFile", "mock_audio_url")}
+            # Handle Murf API error (return mock audio URL)
             return {"success": False, "error": "Audio generation failed. Please try again later.", "audio_url": "mock_audio_url", "mock": True}
 
+# Run the app with Uvicorn if executed directly
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
