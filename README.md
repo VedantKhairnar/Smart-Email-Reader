@@ -4,9 +4,11 @@ A simple Chrome extension that adds AI-powered email summarization and text-to-s
 
 ## 📺 Demo
 
-Watch a quick demo of the Smart Email Reader in action:
+<a href="https://www.youtube.com/watch?v=UJg5aFZ7MF8" target="_blank">
+  <img src="/assets/demoPreview.png" alt="Watch the demo" width="400"/>
+</a>
 
-<video src="assets/demo.mov" controls width="600"></video>
+Click the image above to watch the demo video on YouTube.
 
 ## Simple Architecture
 
@@ -16,16 +18,17 @@ Chrome Extension → FastAPI Backend → AI APIs
 
 ```
 smart-email-reader/
-├── backend/               # FastAPI backend (server)
-│   ├── main.py
-│   ├── requirements.txt
-│   └── .env.example
-├── extension/             # Chrome extension (UI + content script)
-│   ├── manifest.json
-│   ├── content.js
-│   ├── popup.html
-   └── popup.js
-└── README.md              # This file
+├── backend/               # All Python backend code (FastAPI server)
+│   ├── main.py            # Main FastAPI app with all API endpoints
+│   ├── requirements.txt.  # Python dependencies for the backend
+│   └── .env.example       # Template for your API keys and secrets
+|
+├── extension/             # Chrome extension code (runs in the browser)
+│   ├── manifest.json      # Extension’s config: permissions, scripts, and metadata
+│   ├── content.js         # Injected into Gmail; extracts email data and calls backend
+│   ├── popup.html         # The extension’s popup UI (status, setup help)
+│   └── popup.js           # Logic for the popup (backend health, API key checks)
+└── TUTORIAL.md            # This tutorial file 
 ```
 
 ## Quick Setup
@@ -44,7 +47,7 @@ smart-email-reader/
 3. **Start the backend (development):**
    ```bash
    # From repository root
-   uvicorn backend.main:app --reload --port 8000
+   uvicorn backend.main:app --reload
    ```
 
 4. **Load Chrome extension (in Chrome):**

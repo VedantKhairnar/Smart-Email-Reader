@@ -17,7 +17,11 @@ And along the way, you’ll get hands-on with Chrome extension dev, a Python Fas
 
 Watch a quick demo of the Smart Email Reader in action:
 
-<video src="assets/demo.mov" controls width="600"></video>
+<a href="https://www.youtube.com/watch?v=UJg5aFZ7MF8" target="_blank">
+  <img src="assets/demoPreview.png" alt="Watch the demo" width="400"/>
+</a>
+
+Click the image above to watch the demo video on YouTube.
 
 ---
 ## 🛠️ Before We Start
