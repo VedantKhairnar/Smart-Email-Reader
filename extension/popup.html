@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 350px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #ffffff;
+      color: #333;
+      line-height: 1.5;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .header h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .header p {
+      font-size: 13px;
+      opacity: 0.9;
+    }
+    
+    .content {
+      padding: 24px 20px;
+    }
+    
+    .status-section {
+      margin-bottom: 20px;
+      padding: 16px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+    }
+    
+    .status-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #374151;
+    }
+    
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    
+    .status-connected {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+    
+    .status-disconnected {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+    
+    .status-checking {
+      background: #fef3c7;
+      color: #d97706;
+      border: 1px solid #fed7aa;
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    
+    .dot-green { background: #22c55e; }
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #eab308; }
+    
+    .info-section {
+      background: #f0f9ff;
+      border: 1px solid #0ea5e9;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    
+    .info-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #0c4a6e;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .info-text {
+      font-size: 13px;
+      color: #075985;
+      line-height: 1.4;
+    }
+    
+    .setup-section {
+      background: #fefce8;
+      border: 1px solid #eab308;
+      border-radius: 8px;
+      padding: 16px;
+    }
+    
+    .setup-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #a16207;
+      margin-bottom: 8px;
+    }
+    
+    .setup-step {
+      font-size: 13px;
+      color: #a16207;
+      margin-bottom: 4px;
+    }
+    
+    .refresh-btn {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s ease;
+    }
+    
+    .refresh-btn:hover {
+      background: #4338ca;
+    }
+    
+    .footer {
+      padding: 16px 20px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 12px;
+      color: #6b7280;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h2>AI Email Reader</h2>
+    <p>Backend-powered email processing</p>
+  </div>
+  
+  <div class="content">
+    <div class="status-section">
+      <div class="status-title">Backend Connection</div>
+      <div id="backendStatus" class="status-indicator status-checking">
+        <div class="status-dot dot-yellow"></div>
+        <span>Checking connection...</span>
+      </div>
+    </div>
+    
+    <div class="info-section">
+      <div class="info-title">
+        How it works
+      </div>
+      <div class="info-text">
+        This extension connects to a Python backend server that handles all AI processing. API keys are configured on the backend only.
+      </div>
+    </div>
+    
+    <div id="setupSection" class="setup-section" style="display: none;">
+      <div class="setup-title">Backend Setup Required</div>
+      <div class="setup-step">1. Start your Python backend server</div>
+      <div class="setup-step">2. Ensure it's running on localhost:8000</div>
+      <div class="setup-step">3. Configure API keys in the backend .env file</div>
+    </div>
+    
+    <button id="refreshBtn" class="refresh-btn">Check Connection</button>
+  </div>
+  
+  <div class="footer">
+    Secure - API keys stay in backend - No data stored
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
