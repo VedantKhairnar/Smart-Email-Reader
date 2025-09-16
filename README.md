@@ -2,6 +2,12 @@
 
 A simple Chrome extension that adds AI-powered email summarization and text-to-speech to Gmail using a FastAPI Python backend.
 
+## 📺 Demo
+
+Watch a quick demo of the Smart Email Reader in action:
+
+<video src="assets/demo.mov" controls width="600"></video>
+
 ## Simple Architecture
 
 Chrome Extension → FastAPI Backend → AI APIs

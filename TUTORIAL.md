@@ -13,6 +13,13 @@ By the end, you’ll have:
 And along the way, you’ll get hands-on with Chrome extension dev, a Python FastAPI backend, and real-world API integrations.
 
 ---
+## 📺 Demo
+
+Watch a quick demo of the Smart Email Reader in action:
+
+<video src="assets/demo.mov" controls width="600"></video>
+
+---
 ## 🛠️ Before We Start
 
 **You’ll need:**
