@@ -33,7 +33,6 @@ venv.bak/
 audio_files/
 *.mp3
 *.wav
-*.txt
 
 # OS files
 .DS_Store
